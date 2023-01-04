@@ -18,3 +18,7 @@
 
 - `eslint`, `prettier`
 - `lint-staged`, `husky`: 커밋 전 staged 상태의 파일에 eslint와 prettier을 적용하여 git history 내 동일한 formatting 유지
+
+## 2-3) 스타일링
+
+- `tailwindCSS`
