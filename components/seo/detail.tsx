@@ -7,16 +7,18 @@ import { useRouter } from 'next/router'
 type DetailSEOProps = {
   ogTitle: string
   ogDescription: string
-  url: string
-  images: []
+  images: [] | string
 }
-export default function DetailSEO({ ogTitle, ogDescription, url, images }: DetailSEOProps) {
+
+export default function DetailSEO({ ogTitle, ogDescription, images }: DetailSEOProps) {
+  const { asPath: path } = useRouter()
+
   const imageArr =
     images.length === 0 ? [siteMetaData.siteBanner] : typeof images === 'string' ? [images] : images
 
   const featuredImages = imageArr.map((image) => ({
     '@type': 'ImageObject',
-    url: ['https', 'http'].includes(image) ? image : siteMetaData.siteBanner + image,
+    url: ['https', 'http'].includes(image) ? image : siteMetaData.siteUrl + image,
   }))
 
   const structuredData = {
@@ -24,7 +26,7 @@ export default function DetailSEO({ ogTitle, ogDescription, url, images }: Detai
     '@type': 'Attraction',
     mainEntityOfPage: {
       '@type': 'WebPage',
-      '@id': url,
+      '@id': path,
     },
     headline: ogTitle,
     image: featuredImages,
@@ -46,7 +48,7 @@ export default function DetailSEO({ ogTitle, ogDescription, url, images }: Detai
       <BaseSEO
         ogTitle={ogTitle}
         ogDescription={ogDescription}
-        ogType="article"
+        ogType="Attraction"
         ogImage={featuredImages}
       />
       <Head>

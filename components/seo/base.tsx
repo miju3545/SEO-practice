@@ -7,7 +7,7 @@ export type BaseSEOProps = {
   ogTitle: string
   ogDescription: string
   ogType: string
-  ogImage: any
+  ogImage?: any
 }
 
 export default function BaseSEO({ ogTitle, ogDescription, ogType, ogImage }: BaseSEOProps) {
@@ -18,12 +18,16 @@ export default function BaseSEO({ ogTitle, ogDescription, ogType, ogImage }: Bas
       <title>{ogTitle}</title>
       <meta name="robots" content="follow, index" />
       <meta name="description" content={ogDescription} />
-      <meta property="og:url" content={`${siteMetaData.siteUrl}${path}`} />
+      <meta property="og:url" content={siteMetaData.siteUrl + path} />
       <meta property="og:type" content={ogType} />
       <meta property="og:site_name" content={siteMetaData.title} />
       <meta property="og:description" content={ogDescription} />
       <meta property="og:title" content={ogTitle} />
-      <meta property="og:image" content={ogImage} key={ogImage} />
+      <meta
+        property="og:image"
+        content={ogImage || siteMetaData.siteUrl + siteMetaData.siteBanner}
+        key={ogImage}
+      />
     </Head>
   )
 }
