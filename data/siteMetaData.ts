@@ -1,5 +1,5 @@
 const siteMetaData = {
-  title: 'assignment',
+  title: 'marketboro-assignment',
   author: '박미주',
   gnbTitle: 'Assignment.',
   gnbTitleSmall: 'Is Done!',
@@ -8,6 +8,8 @@ const siteMetaData = {
   locale: 'ko',
   siteUrl: 'http://localhost:3000',
   email: 'miju3545@gmail.com',
+  siteBanner: '/static/siteBanner.png',
+  siteLogo: '/static/siteBanner.png',
 }
 
 export default siteMetaData
