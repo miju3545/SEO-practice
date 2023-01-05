@@ -1,5 +1,4 @@
 import { QueryClient } from 'react-query'
-import siteMetaData from '@/data/siteMetaData'
 
 type AnyOBJ = {
   [key: string]: any
@@ -9,10 +8,23 @@ export const getClient = (() => {
   let client: QueryClient | null = null
 
   return () => {
-    if (!client) client = new QueryClient()
+    if (!client)
+      client = new QueryClient({
+        defaultOptions: {
+          queries: {
+            staleTime: Infinity,
+            cacheTime: Infinity,
+            refetchOnMount: false,
+            refetchOnReconnect: false,
+            refetchOnWindowFocus: false,
+          },
+        },
+      })
     return client
   }
 })()
+
+const BASE_URL = 'https://www.mecallapi.com'
 
 export const fetcher = async ({
   method,
@@ -20,14 +32,12 @@ export const fetcher = async ({
   body,
   params,
 }: {
-  method: 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE'
+  method: 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH'
   path: string
   body?: AnyOBJ
   params?: AnyOBJ
 }) => {
-  const BASE_URL = siteMetaData.siteUrl
   let url = `${BASE_URL}${path}`
-
   const options: RequestInit = {
     method,
     headers: {
@@ -36,9 +46,7 @@ export const fetcher = async ({
     },
   }
 
-  if (body) {
-    options.body = JSON.stringify(body)
-  }
+  if (body) options.body = JSON.stringify(body)
 
   if (params) {
     const searchParams = new URLSearchParams(params)
@@ -48,7 +56,6 @@ export const fetcher = async ({
   try {
     const res = await fetch(url, options)
     const json = await res.json()
-
     return json
   } catch (error) {
     console.error(error)

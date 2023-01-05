@@ -17,7 +17,7 @@ export default function ListLayout({ title, list }: ListLayoutProps) {
         <h1 className="pt-2 text-2xl font-bold tracking-tight sm:text-2xl lg:text-3xl">{title}</h1>
       </div>
       <ul className="grid grid-cols-1 gap-5 sm:grid-cols-2 xl:grid-cols-3 ">
-        {data.map((item: Attraction) => {
+        {data?.map((item: Attraction) => {
           return <Item key={item.id} item={item} />
         })}
       </ul>
