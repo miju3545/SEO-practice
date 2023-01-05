@@ -1,3 +1,3 @@
-const menuLinks = [{ title: 'Shop All', href: '/products' }]
+const menuLinks = [{ title: 'Attractions', href: '/attractions' }]
 
 export default menuLinks
