@@ -55,6 +55,6 @@ export default function SessionProvider({ children }: { children: React.ReactNod
 
 export const useSession = () => {
   const context = useContext(SessionContext)
-  if (!context) throw new Error('session context에 에러 발생')
+  if (!context) throw new Error('session context가 없음!!')
   return context
 }
