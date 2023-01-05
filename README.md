@@ -22,3 +22,14 @@
 ## 2-3) 스타일링
 
 - `tailwindCSS`
+- `nuka-carousal`: 여러 이미지가 들어올 상황을 대비해 carousal 기능 추가
+
+## 2-3) SEO
+
+- `next-sitemap`을 사용해 `roboxs.txt`, 정적/동적 `sitemap.xml`을 생성하여 Nextjs 웹 SEO 최적화
+
+## 3) 내용
+
+- attractions
+  - page, per_page
+- attractions/:id
