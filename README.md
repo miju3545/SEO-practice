@@ -22,14 +22,21 @@
 ## 2-3) 스타일링
 
 - `tailwindCSS`
-- `nuka-carousal`: 여러 이미지가 들어올 상황을 대비해 carousal 기능 추가
 
 ## 2-3) SEO
 
+- bot이 ogtag를 잘 긁어가게 하기 위한 추가 설정.
 - `next-sitemap`을 사용해 `roboxs.txt`, 정적/동적 `sitemap.xml`을 생성하여 Nextjs 웹 SEO 최적화
 
-## 3) 내용
+## 2-4) 내용
 
-- attractions
+- `attractions`
+  - 목록 페이지 seo
   - page, per_page
-- attractions/:id
+- `attractions/:id`
+  - 상세 페이지 seo
+  - `nuka-carousal`: 여러 이미지가 들어올 상황을 대비해 carousal 기능 추가
+
+## 2-5) 상태 관리
+
+- `react-query`, `redux`
