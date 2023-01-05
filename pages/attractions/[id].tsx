@@ -5,7 +5,7 @@ import DetailSEO from '@/components/seo/detail'
 import { useQuery } from 'react-query'
 import { QueryKeys, fetcher } from '../../utils/queryClient'
 import { useRouter } from 'next/router'
-import { Attraction } from '@/data/types'
+import Loading from '@/components/Loading'
 
 export default function AttractionDetailPage() {
   const [slideIndex, setSlideIndex] = useState(0)
@@ -13,17 +13,18 @@ export default function AttractionDetailPage() {
     query: { id },
   } = useRouter()
 
-  const { data } = useQuery([QueryKeys.ATTRACTIONS, id], () =>
+  const { data, isLoading } = useQuery([QueryKeys.ATTRACTIONS, id], () =>
     fetcher({ method: 'GET', path: `/api/attractions/${id}` })
   )
 
+  if (isLoading) return <Loading />
   if (!data) return
 
-  const attraction = data.attraction
+  const attraction = data?.attraction
 
   return (
     <>
-      <DetailSEO ogTitle={''} ogDescription={''} images={attraction.coverimage} />
+      <DetailSEO ogTitle={attraction.name} ogDescription={''} images={attraction.coverimage} />
       <div className="relative pt-3">
         <div className="grid grid-cols-1 sm:grid-cols-2">
           <div className="flex ">
