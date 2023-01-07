@@ -20,6 +20,8 @@ export default function Item({ item }: ItemProps) {
             aria-placeholder="blur"
             width={600}
             height={300}
+            placeholder="blur"
+            blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z/C/HgAGgwJ/lK3Q6wAAAABJRU5ErkJggg=="
           />
           <div className="p-3">
             <h3 className="text-md leading-8 tracking-tight">
