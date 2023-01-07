@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Carousal from 'nuka-carousel'
 import Image from 'next/image'
 import DetailSEO from '@/components/seo/detail'
@@ -7,23 +7,29 @@ import { QueryKeys, fetcher } from '../../utils/queryClient'
 import { useRouter } from 'next/router'
 import Loading from '@/components/Loading'
 import LayoutRenderer from '@/components/LayoutRenderer'
-
+import { useSession } from 'context/session'
 const DEFAULT_LAYOUT = 'DetailLayout'
 
 export default function AttractionDetailPage() {
   const [slideIndex, setSlideIndex] = useState(0)
+  const { session } = useSession()
   const {
     query: { id },
+    push,
   } = useRouter()
 
   const { data, isLoading } = useQuery([QueryKeys.ATTRACTIONS, id], () =>
     fetcher({ method: 'GET', path: `/api/attractions/${id}` })
   )
 
+  const attraction = data?.attraction
+
+  useEffect(() => {
+    if (!session.token) push('/login')
+  }, [session?.token])
+
   if (isLoading) return <Loading />
   if (!data) return
-
-  const attraction = data?.attraction
 
   return (
     <>

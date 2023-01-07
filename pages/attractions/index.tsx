@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react'
-import ListLayout from '@/layouts/ListLayout'
 import ListSEO from '@/components/seo/page'
 import siteMetaData from '../../data/siteMetaData'
 import { useQuery } from 'react-query'
@@ -9,6 +8,7 @@ import Loading from '@/components/Loading'
 import { useRouter } from 'next/router'
 import NotFound from 'pages/404'
 import LayoutRenderer from '@/components/LayoutRenderer'
+import { useSession } from '../../context/session'
 
 const DEFAULT_LAYOUT = 'ListLayout'
 
@@ -17,6 +17,7 @@ export default function AttractionListPage() {
     query: { page: queryPage, per_page: queryPerPage },
     push,
   } = useRouter()
+  const { session } = useSession()
   const [page, setPage] = useState(1)
   const [perPage, setPerPage] = useState(10)
   const { data, isLoading } = useQuery<AttractionList>(
@@ -40,6 +41,10 @@ export default function AttractionListPage() {
     totalPages: Number(data?.total_pages),
     onChangePage,
   }
+
+  useEffect(() => {
+    if (!session.token) push('/login')
+  }, [session.token])
 
   useEffect(() => {
     if (queryPage) {
