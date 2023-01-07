@@ -8,12 +8,10 @@ type LayoutWrapperProps = {
 
 export default function LayoutWrapper({ children }: LayoutWrapperProps) {
   return (
-    <section>
+    <>
       <GNB />
-      <div className="mx-auto max-w-full px-4 sm:px-10 xl:max-w-screen-xl xl:px-10">
-        <main>{children}</main>
-      </div>
+      <div>{children}</div>
       <Footer />
-    </section>
+    </>
   )
 }

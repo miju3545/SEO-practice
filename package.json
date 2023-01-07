@@ -10,6 +10,10 @@
     "postbuild": "next-sitemap --config next-sitemap.config.js"
   },
   "dependencies": {
+    "@emotion/react": "^11.10.5",
+    "@emotion/styled": "^11.10.5",
+    "@mantine/core": "^5.10.0",
+    "@mantine/hooks": "^5.10.0",
     "@types/react-redux": "^7.1.25",
     "next": "13.1.1",
     "nuka-carousel": "^5.4.1",
