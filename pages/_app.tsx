@@ -16,9 +16,7 @@ export default function App({ Component, pageProps }: AppProps) {
       </Head>
       <SessionProvider>
         <QueryClientProvider client={client}>
-          <LayoutWrapper>
-            <Component {...pageProps} />
-          </LayoutWrapper>
+          <Component {...pageProps} />
         </QueryClientProvider>
       </SessionProvider>
     </>
