@@ -10,7 +10,7 @@ export type BaseSEOProps = {
   ogImage?: any
 }
 
-export default function BaseSEO({ ogTitle, ogDescription, ogType, ogImage }: BaseSEOProps) {
+export default function CommonSEO({ ogTitle, ogDescription, ogType, ogImage }: BaseSEOProps) {
   const { asPath: path } = useRouter()
 
   return (

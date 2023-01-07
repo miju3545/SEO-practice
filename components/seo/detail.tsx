@@ -1,6 +1,6 @@
 import React from 'react'
 import Head from 'next/head'
-import BaseSEO from './base'
+import CommonSEO from './common'
 import siteMetaData from '@/data/siteMetaData'
 import { useRouter } from 'next/router'
 
@@ -45,7 +45,7 @@ export default function DetailSEO({ ogTitle, ogDescription, images }: DetailSEOP
 
   return (
     <>
-      <BaseSEO
+      <CommonSEO
         ogTitle={ogTitle}
         ogDescription={ogDescription}
         ogType="Attraction"
