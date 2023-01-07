@@ -1,4 +1,5 @@
 import { QueryClient } from 'react-query'
+import Cookies from 'js-cookie'
 
 type AnyOBJ = {
   [key: string]: any
@@ -31,18 +32,22 @@ export const fetcher = async ({
   path,
   body,
   params,
+  headers,
 }: {
   method: 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH'
   path: string
   body?: AnyOBJ
   params?: AnyOBJ
+  headers?: AnyOBJ
 }) => {
   let url = `${BASE_URL}${path}`
+
   const options: RequestInit = {
     method,
     headers: {
       'Content-Type': 'application/json',
       'Access-Control-Allow-Origin': BASE_URL,
+      ...headers,
     },
   }
 
@@ -56,6 +61,7 @@ export const fetcher = async ({
   try {
     const res = await fetch(url, options)
     const json = await res.json()
+
     return json
   } catch (error) {
     console.error(error)
