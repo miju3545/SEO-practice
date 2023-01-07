@@ -14,11 +14,11 @@ export default function App({ Component, pageProps }: AppProps) {
       <Head>
         <meta content="width=device-width, initial-scale=1" name="viewport" />
       </Head>
-      <SessionProvider>
-        <QueryClientProvider client={client}>
+      <QueryClientProvider client={client}>
+        <SessionProvider>
           <Component {...pageProps} />
-        </QueryClientProvider>
-      </SessionProvider>
+        </SessionProvider>
+      </QueryClientProvider>
     </>
   )
 }
