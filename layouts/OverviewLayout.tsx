@@ -1,20 +1,18 @@
-import React, { Dispatch, SetStateAction } from 'react'
+import React from 'react'
 
 import { Attraction, AttractionList } from '@/data/types'
 import Item from '@/components/attraction-list/item'
 import Pagination, { PaginationProps } from '@/components/Pagination'
 import LayoutWrapper from '@/components/LayoutWrapper'
-import GNB from '@/components/GNB'
-import Footer from '../components/Footer'
 import CommonLayout from './CommonLayout'
 
-type ListLayoutProps = {
+type OverviewLayoutProps = {
   title: string
   list: AttractionList
   pagination?: PaginationProps
 }
 
-export default function ListLayout({ title, list, pagination }: ListLayoutProps) {
+export default function OverviewLayout({ title, list, pagination }: OverviewLayoutProps) {
   return (
     <LayoutWrapper>
       <CommonLayout>
@@ -25,7 +23,7 @@ export default function ListLayout({ title, list, pagination }: ListLayoutProps)
         </div>
         <div className="flex flex-row-reverse mb-4">
           <div>
-            <span>{list.total} Items</span>
+            <span>{list.total} attractions</span>
           </div>
         </div>
         <ul className="grid grid-cols-1 gap-5 sm:grid-cols-2 xl:grid-cols-3 ">

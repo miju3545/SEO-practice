@@ -10,7 +10,6 @@ type AuthLayout = {
 export default function AuthLayout({ children }: AuthLayout) {
   return (
     <>
-      <PageSEO ogTitle={`Login - ${siteMetaData.title}`} ogDescription={siteMetaData.description} />
       <CommonLayout>
         <div className="flex items-center justify-center h-screen">
           <div className="grid sm:grid-cols-2 h-3/4 w-full sm:gap-8 xl:gap-16">
