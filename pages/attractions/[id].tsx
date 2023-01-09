@@ -8,11 +8,12 @@ import { useRouter } from 'next/router'
 import Loading from '@/components/Loading'
 import LayoutRenderer from '@/components/LayoutRenderer'
 import { useSession } from 'context/session'
+import useIsAuthed from '../../hooks/useIsAuthed'
 const DEFAULT_LAYOUT = 'DetailLayout'
 
 export default function AttractionDetailPage() {
   const [slideIndex, setSlideIndex] = useState(0)
-  const { session } = useSession()
+  const isAuthed = useIsAuthed()
   const {
     query: { id },
     push,
@@ -25,8 +26,8 @@ export default function AttractionDetailPage() {
   const attraction = data?.attraction
 
   useEffect(() => {
-    if (!session.token) push('/login')
-  }, [session?.token])
+    if (!isAuthed) push('/login')
+  }, [isAuthed, push])
 
   if (isLoading) return <Loading />
   if (!data) return

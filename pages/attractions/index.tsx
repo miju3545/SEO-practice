@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import ListSEO from '@/components/seo/page'
+import PageSEO from '@/components/seo/page'
 import siteMetaData from '../../data/siteMetaData'
 import { useQuery } from 'react-query'
 import { QueryKeys, fetcher } from '../../utils/queryClient'
@@ -8,16 +8,16 @@ import Loading from '@/components/Loading'
 import { useRouter } from 'next/router'
 import NotFound from 'pages/404'
 import LayoutRenderer from '@/components/LayoutRenderer'
-import { useSession } from '../../context/session'
+import useIsAuthed from '../../hooks/useIsAuthed'
 
-const DEFAULT_LAYOUT = 'ListLayout'
+const DEFAULT_LAYOUT = 'OverviewLayout'
 
-export default function AttractionListPage() {
+export default function AttractionsOverViewPage() {
   const {
     query: { page: queryPage, per_page: queryPerPage },
     push,
   } = useRouter()
-  const { session } = useSession()
+  const isAuthed = useIsAuthed()
   const [page, setPage] = useState(1)
   const [perPage, setPerPage] = useState(10)
   const { data, isLoading } = useQuery<AttractionList>(
@@ -43,8 +43,8 @@ export default function AttractionListPage() {
   }
 
   useEffect(() => {
-    if (!session.token) push('/login')
-  }, [session.token])
+    if (!isAuthed) push('/login')
+  }, [isAuthed, push])
 
   useEffect(() => {
     if (queryPage) {
@@ -57,14 +57,18 @@ export default function AttractionListPage() {
   }, [queryPage, queryPerPage])
 
   if (isLoading) return <Loading />
+  if (!data) return
   if (Number(queryPage) < 1 || Number(queryPage) > Number(data?.total_pages)) {
     return <NotFound />
   }
 
   return (
     <>
-      <ListSEO ogTitle={siteMetaData.title} ogDescription={siteMetaData.description} />
-      {data && <LayoutRenderer layout={DEFAULT_LAYOUT} list={data} pagination={pagination} />}
+      <PageSEO
+        ogTitle={`Overview - ${siteMetaData.title}`}
+        ogDescription={siteMetaData.description}
+      />
+      <LayoutRenderer layout={DEFAULT_LAYOUT} list={data} pagination={pagination} />
     </>
   )
 }

@@ -9,6 +9,9 @@ import { fetcher } from '@/utils/queryClient'
 import { QueryKeys } from '../utils/queryClient'
 import { useRouter } from 'next/router'
 import { AiOutlineUser, AiOutlineLock } from 'react-icons/ai'
+import useIsAuthed from '../hooks/useIsAuthed'
+import PageSEO from '@/components/seo/page'
+import siteMetaData from '@/data/siteMetaData'
 
 const DEFAULT_LAYOUT = 'LoginLayout'
 
@@ -18,7 +21,8 @@ type FormType = {
 }
 export default function LoginPage() {
   const router = useRouter()
-  const { session, login } = useSession()
+  const { login } = useSession()
+  const isAuthed = useIsAuthed()
   const {
     control,
     handleSubmit,
@@ -37,14 +41,12 @@ export default function LoginPage() {
       fetcher({ method: 'POST', path: '/api/login', body: { username, password } }),
     {
       onSuccess: (data) => {
-        const { user, accessToken, expiresIn } = data
-        login(user, accessToken, expiresIn)
+        const { accessToken, expiresIn } = data
+        login(accessToken, expiresIn)
         router.push('/attractions?page=1&per_page=10')
       },
     }
   )
-
-  console.log('session', session)
 
   const onSubmit = () => {
     const [username, password] = getValues(['username', 'password'])
@@ -56,12 +58,13 @@ export default function LoginPage() {
   }, [setFocus])
 
   useEffect(() => {
-    if (session.token) router.push('/attractions?page=1&per_page=10')
-  }, [session])
+    if (isAuthed) router.push('/attractions?page=1&per_page=10')
+  }, [isAuthed, router])
 
   return (
-    <LayoutRenderer layout={DEFAULT_LAYOUT}>
-      {
+    <>
+      <PageSEO ogTitle={`Login - ${siteMetaData.title}`} ogDescription={siteMetaData.description} />
+      <LayoutRenderer layout={DEFAULT_LAYOUT}>
         <div>
           <form onSubmit={handleSubmit(onSubmit)}>
             <div className="grid gap-4">
@@ -94,7 +97,7 @@ export default function LoginPage() {
             </div>
           </form>
         </div>
-      }
-    </LayoutRenderer>
+      </LayoutRenderer>
+    </>
   )
 }
