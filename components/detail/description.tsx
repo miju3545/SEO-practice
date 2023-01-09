@@ -1,7 +1,6 @@
 import React from 'react'
 import { Attraction } from '@/data/types'
-
-const APP_KEY = '69c4d041a54b10ea7c48740bc19ac883'
+import KakaoMap from './kakaomap'
 
 type DescriptionProps = {
   attraction: Attraction
@@ -9,17 +8,6 @@ type DescriptionProps = {
 
 const Detail = ({ detail }: { detail: string }) => (
   <p className="text-sm tracking-wider">{detail}</p>
-)
-
-const Map = ({ latitude, longitude }: { latitude: number; longitude: number }) => (
-  <>
-    <div id={'map'}></div>
-    <script
-      type="text/javascript"
-      src={`//dapi.kakao.com/v2/maps/sdk.js?appkey=${APP_KEY}`}
-      defer
-    />
-  </>
 )
 
 export default function Description({ attraction }: DescriptionProps) {
@@ -31,7 +19,7 @@ export default function Description({ attraction }: DescriptionProps) {
     props: { [key: string]: any }
   }[] = [
     { title: 'detail', Element: Detail, props: { detail } },
-    { title: 'location', Element: Map, props: { latitude, longitude } },
+    { title: 'location', Element: KakaoMap, props: { latitude, longitude } },
   ]
 
   return (

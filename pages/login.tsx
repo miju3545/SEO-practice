@@ -68,7 +68,7 @@ export default function LoginPage() {
 
   return (
     <>
-      <PageSEO ogTitle={`Login - ${siteMetaData.title}`} ogDescription={siteMetaData.description} />
+      <PageSEO ogTitle={`Login | ${siteMetaData.title}`} ogDescription={siteMetaData.description} />
       <LoginLayout>
         <div>
           <form onSubmit={handleSubmit(onSubmit)}>

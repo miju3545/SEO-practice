@@ -7,8 +7,10 @@ import Loading from '@/components/Loading'
 import useIsAuthed from '../../hooks/useIsAuthed'
 import DetailLayout from '@/layouts/DetailLayout'
 import { Attraction } from '@/data/types'
-import Images from '@/components/detail/images'
+import ImageCarousal from '@/components/detail/imageCarousal'
 import Description from '@/components/detail/description'
+import siteMetaData from '@/data/siteMetaData'
+import NotAllowed from 'pages/401'
 
 export default function AttractionDetailPage() {
   const isAuthed = useIsAuthed()
@@ -23,24 +25,21 @@ export default function AttractionDetailPage() {
 
   const attraction: Attraction = data?.attraction
 
-  useEffect(() => {
-    if (!isAuthed) push('/login')
-  }, [isAuthed, push])
-
   if (isLoading) return <Loading />
   if (!data) return
+  if (!isAuthed) return <NotAllowed />
 
   return (
     <>
       <DetailSEO
-        ogTitle={attraction.name}
+        ogTitle={`${attraction.name} | ${siteMetaData.title}`}
         ogDescription={attraction.detail}
         images={attraction.coverimage}
       />
       <DetailLayout>
         <div className="relative pt-3">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-            <Images images={attraction.coverimage} />
+            <ImageCarousal images={attraction.coverimage} />
             <Description attraction={attraction} />
           </div>
         </div>

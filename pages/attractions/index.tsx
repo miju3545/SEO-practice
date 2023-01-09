@@ -9,6 +9,7 @@ import { useRouter } from 'next/router'
 import NotFound from 'pages/404'
 import LayoutRenderer from '@/components/LayoutRenderer'
 import useIsAuthed from '../../hooks/useIsAuthed'
+import NotAllowed from 'pages/401'
 
 const DEFAULT_LAYOUT = 'OverviewLayout'
 
@@ -43,10 +44,6 @@ export default function AttractionsOverViewPage() {
   }
 
   useEffect(() => {
-    if (!isAuthed) push('/login')
-  }, [isAuthed, push])
-
-  useEffect(() => {
     if (queryPage) {
       setPage(Number(queryPage))
     }
@@ -58,6 +55,7 @@ export default function AttractionsOverViewPage() {
 
   if (isLoading) return <Loading />
   if (!data) return
+  if (!isAuthed) return <NotAllowed />
   if (Number(queryPage) < 1 || Number(queryPage) > Number(data?.total_pages)) {
     return <NotFound />
   }
@@ -65,7 +63,7 @@ export default function AttractionsOverViewPage() {
   return (
     <>
       <PageSEO
-        ogTitle={`Overview - ${siteMetaData.title}`}
+        ogTitle={`Overview | ${siteMetaData.title}`}
         ogDescription={siteMetaData.description}
       />
       <LayoutRenderer layout={DEFAULT_LAYOUT} overview={data} pagination={pagination} />

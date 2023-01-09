@@ -12,11 +12,16 @@ export default function GNB() {
   const { session, logout } = useSession()
   const [openModal, setOpenModal] = useState(false)
 
+  const handleLogout = () => {
+    logout()
+    router.push('/login')
+  }
+
   return (
     <header className="border-b">
       <div className="h-full flex flex-col mx-auto max-w-full px-4 sm:px-10 xl:max-w-screen-xl xl:px-10">
         <div className="pt-6 h-full flex items-center justify-between">
-          <div className="sm:block text-xl leading-8   uppercase font-semibold tracking-wider">
+          <div className="sm:block text-xl leading-8 uppercase font-semibold tracking-wider">
             <Link href="/attractions?page=1&per_page=10" aria-label={siteMetaData.gnbTitle}>
               <div className="hidden h-6 sm:block">{siteMetaData.gnbTitle}</div>
               <div className="block h-6 text-xl sm:hidden">{siteMetaData.gnbTitleSmall}</div>
@@ -69,7 +74,7 @@ export default function GNB() {
             </div>
           </div>
           <ul>
-            <li className="hover:bg-gray-50 cursor-pointer p-2 text-sm" onClick={() => logout()}>
+            <li className="hover:bg-gray-50 cursor-pointer p-2 text-sm" onClick={handleLogout}>
               Sign Out
             </li>
           </ul>

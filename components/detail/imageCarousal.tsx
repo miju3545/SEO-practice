@@ -6,7 +6,7 @@ type ImagesProps = {
   images: string[] | string
 }
 
-export default function Images({ images }: ImagesProps) {
+export default function ImageCarousal({ images }: ImagesProps) {
   const [slideIndex, setSlideIndex] = useState(0)
 
   const imageArr =
