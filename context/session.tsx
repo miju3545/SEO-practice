@@ -1,4 +1,4 @@
-import { Dispatch, createContext, useContext, useReducer, useEffect, useState } from 'react'
+import { createContext, useContext, useReducer, useEffect, useState } from 'react'
 import { useQuery } from 'react-query'
 import { QueryKeys } from '../utils/queryClient'
 import { fetcher } from '@/utils/queryClient'
@@ -18,7 +18,7 @@ type UserType = {
 
 type SessionContextType = {
   session: SessionType
-  login: (user: UserType, token: string, expires: number) => void
+  login: (token: string, expires: number) => void
   logout: () => void
 }
 
@@ -29,7 +29,7 @@ type SessionType = {
 
 type ActionType =
   | { type: 'SET'; payload: { user: UserType; token: string } }
-  | { type: 'LOGIN'; payload: { user: UserType; token: string } }
+  | { type: 'LOGIN'; payload: { token: string } }
   | { type: 'LOGOUT' }
 
 export function reducer(session: SessionType, action: ActionType): SessionType {
@@ -40,9 +40,9 @@ export function reducer(session: SessionType, action: ActionType): SessionType {
       return { ...session, user, token }
     }
     case 'LOGIN': {
-      const { user, token } = action.payload
+      const { token } = action.payload
 
-      return { ...session, user, token }
+      return { ...session, token }
     }
     case 'LOGOUT': {
       return { ...session, user: null, token: null }
@@ -52,8 +52,10 @@ export function reducer(session: SessionType, action: ActionType): SessionType {
   }
 }
 
+const TOKEN_KEY = 'access_token'
+
 export default function SessionProvider({ children }: { children: React.ReactNode }) {
-  const token = Cookies.get('access_token')
+  const token = Cookies.get(TOKEN_KEY)
 
   const { data } = useQuery([QueryKeys.AUTH, token], () =>
     fetcher({ method: 'GET', path: '/api/auth/user', headers: { Authorization: token } })
@@ -66,14 +68,14 @@ export default function SessionProvider({ children }: { children: React.ReactNod
 
   const [session, dispatch] = useReducer(reducer, defaultSession)
 
-  const login = (user: UserType, token: string, expires: number) => {
-    Cookies.set('access_token', `Bearer ${token}`, { expires })
-    dispatch({ type: 'LOGIN', payload: { user, token } })
+  const login = (token: string, expires: number) => {
+    Cookies.set(TOKEN_KEY, `Bearer ${token}`, { expires })
+    dispatch({ type: 'LOGIN', payload: { token } })
   }
 
   const logout = () => {
     dispatch({ type: 'LOGOUT' })
-    Cookies.remove('token')
+    Cookies.remove(TOKEN_KEY)
   }
 
   const set = (user: UserType, token: string) => {
