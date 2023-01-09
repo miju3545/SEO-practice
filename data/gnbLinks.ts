@@ -1,3 +1,3 @@
-const gnbLinks = [{ title: '로그아웃', href: '/logout' }]
+const gnbLinks = [{ title: 'Overview', href: '/attractions?page=1&per_page=10' }]
 
 export default gnbLinks
