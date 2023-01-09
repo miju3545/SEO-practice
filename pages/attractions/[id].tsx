@@ -1,29 +1,27 @@
-import React, { useState, useEffect } from 'react'
-import Carousal from 'nuka-carousel'
-import Image from 'next/image'
+import React, { useEffect } from 'react'
 import DetailSEO from '@/components/seo/detail'
 import { useQuery } from 'react-query'
 import { QueryKeys, fetcher } from '../../utils/queryClient'
 import { useRouter } from 'next/router'
 import Loading from '@/components/Loading'
-import LayoutRenderer from '@/components/LayoutRenderer'
 import useIsAuthed from '../../hooks/useIsAuthed'
-
-const DEFAULT_LAYOUT = 'DetailLayout'
+import DetailLayout from '@/layouts/DetailLayout'
+import { Attraction } from '@/data/types'
+import Images from '@/components/detail/images'
+import Description from '@/components/detail/description'
 
 export default function AttractionDetailPage() {
-  const [slideIndex, setSlideIndex] = useState(0)
   const isAuthed = useIsAuthed()
   const {
-    query: { id },
+    query: { id: queryId },
     push,
   } = useRouter()
 
-  const { data, isLoading } = useQuery([QueryKeys.ATTRACTIONS, id], () =>
-    fetcher({ method: 'GET', path: `/api/attractions/${id}` })
+  const { data, isLoading } = useQuery([QueryKeys.ATTRACTIONS, queryId], () =>
+    fetcher({ method: 'GET', path: `/api/attractions/${queryId}` })
   )
 
-  const attraction = data?.attraction
+  const attraction: Attraction = data?.attraction
 
   useEffect(() => {
     if (!isAuthed) push('/login')
@@ -34,38 +32,19 @@ export default function AttractionDetailPage() {
 
   return (
     <>
-      <DetailSEO ogTitle={attraction.name} ogDescription={''} images={attraction.coverimage} />
-      <LayoutRenderer layout={DEFAULT_LAYOUT}>
+      <DetailSEO
+        ogTitle={attraction.name}
+        ogDescription={attraction.detail}
+        images={attraction.coverimage}
+      />
+      <DetailLayout>
         <div className="relative pt-3">
-          <div className="grid grid-cols-1 sm:grid-cols-2">
-            <div className="flex ">
-              <div className="flex-col space-y-2 mr-3 hidden sm:flex ">
-                {[attraction.coverimage].map((image, index) => (
-                  <div
-                    key={image}
-                    className={`${index === slideIndex ? 'ring-2 ring-gray-900' : ''}`}
-                  >
-                    <Image
-                      key={image}
-                      src={image}
-                      alt={image}
-                      width={200}
-                      height={20}
-                      onClick={() => setSlideIndex(index)}
-                    />
-                  </div>
-                ))}
-              </div>
-              <Carousal withoutControls={true} wrapAround slideIndex={slideIndex}>
-                {[attraction.coverimage].map((image) => (
-                  <Image key={image} src={image} alt={image} width={600} height={50} />
-                ))}
-              </Carousal>
-            </div>
-            <div>설명</div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+            <Images images={attraction.coverimage} />
+            <Description attraction={attraction} />
           </div>
         </div>
-      </LayoutRenderer>
+      </DetailLayout>
     </>
   )
 }

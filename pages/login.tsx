@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react'
-import LayoutRenderer from '@/components/LayoutRenderer'
 import Input from '@/components/login/input'
 import { useForm } from 'react-hook-form'
 import { useSession } from '../context/session'
@@ -11,8 +10,7 @@ import { AiOutlineUser, AiOutlineLock } from 'react-icons/ai'
 import useIsAuthed from '../hooks/useIsAuthed'
 import PageSEO from '@/components/seo/page'
 import siteMetaData from '@/data/siteMetaData'
-
-const DEFAULT_LAYOUT = 'LoginLayout'
+import LoginLayout from '@/layouts/LoginLayout'
 
 type FormType = {
   username: string
@@ -71,7 +69,7 @@ export default function LoginPage() {
   return (
     <>
       <PageSEO ogTitle={`Login - ${siteMetaData.title}`} ogDescription={siteMetaData.description} />
-      <LayoutRenderer layout={DEFAULT_LAYOUT}>
+      <LoginLayout>
         <div>
           <form onSubmit={handleSubmit(onSubmit)}>
             <div className="grid gap-4">
@@ -96,7 +94,7 @@ export default function LoginPage() {
               />
               <button
                 type="submit"
-                className="mt-6 px-4 py-3 rounded-md text-lg bg-gray-900 w-full text-white  sm:w-80 md:w-96  disabled:opacity-50"
+                className="mt-6 px-4 py-3 rounded-md text-lg bg-gray-900 w-full text-white sm:w-80 md:w-96  disabled:opacity-50 mb-2  uppercase font-semibold tracking-wider"
                 disabled={!isValid}
               >
                 Login
@@ -107,7 +105,7 @@ export default function LoginPage() {
             </div>
           </form>
         </div>
-      </LayoutRenderer>
+      </LoginLayout>
     </>
   )
 }
