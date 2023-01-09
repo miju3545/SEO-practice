@@ -6,7 +6,7 @@ export default function DetailLayout({ children }: { children: React.ReactNode }
   return (
     <LayoutWrapper>
       <CommonLayout>
-        <div>{children}</div>
+        <div className="min-h-full">{children}</div>
       </CommonLayout>
     </LayoutWrapper>
   )
