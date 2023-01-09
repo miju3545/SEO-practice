@@ -8,10 +8,10 @@ type LayoutWrapperProps = {
 
 export default function LayoutWrapper({ children }: LayoutWrapperProps) {
   return (
-    <>
+    <div className="min-h-full">
       <GNB />
       <div>{children}</div>
       <Footer />
-    </>
+    </div>
   )
 }

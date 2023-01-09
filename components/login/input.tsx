@@ -28,9 +28,12 @@ export default function Input({
       name={name}
       control={control}
       rules={rules}
-      render={({ field, fieldState: { isDirty, invalid }, formState }) => (
+      render={({ field, fieldState: { isDirty, invalid } }) => (
         <div className="w-full sm:w-80 md:w-96">
-          <label htmlFor={label} className="block font-medium text-gray-700 mb-2 text-md">
+          <label
+            htmlFor={label}
+            className="block  text-gray-700 mb-2 text-xs uppercase font-semibold tracking-wider"
+          >
             {label}
           </label>
           <div className="relative mt-1 rounded-md shadow-sm">

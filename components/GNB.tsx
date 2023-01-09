@@ -16,7 +16,7 @@ export default function GNB() {
     <header className="border-b">
       <div className="h-full flex flex-col mx-auto max-w-full px-4 sm:px-10 xl:max-w-screen-xl xl:px-10">
         <div className="pt-6 h-full flex items-center justify-between">
-          <div className="sm:block text-xl font-semibold leading-8 tracking-tight">
+          <div className="sm:block text-xl leading-8   uppercase font-semibold tracking-wider">
             <Link href="/attractions?page=1&per_page=10" aria-label={siteMetaData.gnbTitle}>
               <div className="hidden h-6 sm:block">{siteMetaData.gnbTitle}</div>
               <div className="block h-6 text-xl sm:hidden">{siteMetaData.gnbTitleSmall}</div>

@@ -2,7 +2,7 @@ import React from 'react'
 import { Attraction } from '@/data/types'
 import Link from 'next/link'
 import Image from 'next/image'
-import { BiCurrentLocation } from 'react-icons/bi'
+import { AiOutlineGlobal } from 'react-icons/ai'
 type ItemProps = {
   item: Attraction
 }
@@ -26,12 +26,18 @@ export default function Item({ item }: ItemProps) {
           <div className="py-2 px-4 pb-4">
             <div>
               <div className="font-bold text-slate-700">
-                <Link href={`/attractions/${id}`} className="text-gray-900 hover:underline">
+                <Link
+                  href={`/attractions/${id}`}
+                  className="text-gray-900 hover:underline tracking-wider"
+                >
                   {name}
                 </Link>
               </div>
               <div className="flex items-center mt-2 text-xs text-slate-600 uppercase font-bold tracking-wider">
-                <BiCurrentLocation className="mr-2" /> lat: {latitude}, long: {longitude}
+                <AiOutlineGlobal />
+                <span className="ml-1">
+                  lat: {latitude}, long: {longitude}
+                </span>
               </div>
             </div>
           </div>
