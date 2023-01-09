@@ -18,7 +18,7 @@ export default function DetailSEO({ ogTitle, ogDescription, images }: DetailSEOP
 
   const featuredImages = imageArr.map((image) => ({
     '@type': 'ImageObject',
-    url: ['https', 'http'].includes(image) ? image : siteMetaData.siteUrl + image,
+    url: image.includes('http') || image.includes('https') ? image : siteMetaData.siteUrl + image,
   }))
 
   const structuredData = {

@@ -23,11 +23,13 @@ export default function CommonSEO({ ogTitle, ogDescription, ogType, ogImage }: C
       <meta property="og:site_name" content={siteMetaData.title} />
       <meta property="og:description" content={ogDescription} />
       <meta property="og:title" content={ogTitle} />
-      <meta
-        property="og:image"
-        content={ogImage || siteMetaData.siteUrl + siteMetaData.siteBanner}
-        key={ogImage}
-      />
+      {Array.isArray(ogImage) ? (
+        ogImage.map(({ url }: { url: string }) => (
+          <meta property="og:image" content={url} key={url} />
+        ))
+      ) : (
+        <meta property="og:image" content={ogImage} key={ogImage} />
+      )}
     </Head>
   )
 }
