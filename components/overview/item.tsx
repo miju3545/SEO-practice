@@ -36,7 +36,7 @@ export default function Item({ item }: ItemProps) {
               <div className="flex items-center mt-2 text-xs text-slate-600 uppercase font-bold tracking-wider">
                 <AiOutlineGlobal />
                 <span className="ml-1">
-                  lat: {latitude}, long: {longitude}
+                  lat: {latitude}, lng: {longitude}
                 </span>
               </div>
             </div>

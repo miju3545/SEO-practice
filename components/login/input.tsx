@@ -29,10 +29,10 @@ export default function Input({
       control={control}
       rules={rules}
       render={({ field, fieldState: { isDirty, invalid } }) => (
-        <div className="w-full sm:w-80 md:w-96">
+        <div className="w-full ">
           <label
             htmlFor={label}
-            className="block  text-gray-700 mb-2 text-xs uppercase font-semibold tracking-wider"
+            className="block text-gray-700 mb-2 text-xs uppercase font-semibold tracking-wider"
           >
             {label}
           </label>
@@ -43,7 +43,7 @@ export default function Input({
             <input
               type={type}
               id={label}
-              className="block w-full rounded-md border-gray-300 pl-10 pr-12 py-2 focus:border-gray-900 focus:ring-gray-500 text-md"
+              className="block w-full rounded-md border-gray-300 pl-10 pr-12 py-2 focus:border-gray-900 outline-none focus:outline-none focus:ring-gray-500 text-md"
               {...field}
               {...rest}
             />

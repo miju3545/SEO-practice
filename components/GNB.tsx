@@ -4,27 +4,21 @@ import Link from 'next/link'
 import siteMetaData from '../data/siteMetaData'
 import gnbLinks from '../data/gnbLinks'
 import { useSession } from '../context/session'
-import Modal from './Modal'
 import { useRouter } from 'next/router'
+import UserMenuModal from './UserMenuModal'
 
 export default function GNB() {
   const router = useRouter()
-  const { session, logout } = useSession()
+  const { session } = useSession()
   const [openModal, setOpenModal] = useState(false)
 
-  const handleLogout = () => {
-    logout()
-    router.push('/login')
-  }
-
   return (
-    <header className="border-b">
+    <header id="gnb" className="border-b fixed top-0 left-0 right-0 h-36 bg-white z-10">
       <div className="h-full flex flex-col mx-auto max-w-full px-4 sm:px-10 xl:max-w-screen-xl xl:px-10">
         <div className="pt-6 h-full flex items-center justify-between">
           <div className="sm:block text-xl leading-8 uppercase font-semibold tracking-wider">
             <Link href="/attractions?page=1&per_page=10" aria-label={siteMetaData.gnbTitle}>
-              <div className="hidden h-6 sm:block">{siteMetaData.gnbTitle}</div>
-              <div className="block h-6 text-xl sm:hidden">{siteMetaData.gnbTitleSmall}</div>
+              <div className="h-6">{siteMetaData.gnbTitle}</div>
             </Link>
           </div>
           <div className=" flex items-center justify-end leading-5">
@@ -55,31 +49,7 @@ export default function GNB() {
           ))}
         </div>
       </div>
-      <Modal open={openModal} onClose={() => setOpenModal(false)} className={'top-16 right-10'}>
-        <div className="divide-y border border-gray-300 rounded-md p-1 bg-white w-72  shadow-lg shadow-gray-200">
-          <div className="p-2 flex items-start">
-            <Image
-              src={session.user?.avatar || '/static/placeholder.png'}
-              alt={session.user?.avatar || '/static/placeholder.png'}
-              width={50}
-              height={40}
-            />
-            <div className="ml-2 flex flex-col">
-              <Link href={`/users/${session.user?.username}`}>
-                <span className="text-sm">{session.user?.username}</span>
-              </Link>
-              <p className="text-xs">
-                {session.user?.fname} {session.user?.lname}
-              </p>
-            </div>
-          </div>
-          <ul>
-            <li className="hover:bg-gray-50 cursor-pointer p-2 text-sm" onClick={handleLogout}>
-              Sign Out
-            </li>
-          </ul>
-        </div>
-      </Modal>
+      <UserMenuModal open={openModal} onClose={() => setOpenModal(false)} />
     </header>
   )
 }
