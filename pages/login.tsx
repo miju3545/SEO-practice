@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react'
-
 import LayoutRenderer from '@/components/LayoutRenderer'
 import Input from '@/components/login/input'
 import { useForm } from 'react-hook-form'
@@ -28,7 +27,7 @@ export default function LoginPage() {
     handleSubmit,
     getValues,
     setFocus,
-    formState: { isValid },
+    formState: { isValid, errors },
     setError,
   } = useForm<FormType>({
     defaultValues: { username: '', password: '' },
@@ -41,9 +40,17 @@ export default function LoginPage() {
       fetcher({ method: 'POST', path: '/api/login', body: { username, password } }),
     {
       onSuccess: (data) => {
-        const { accessToken, expiresIn } = data
-        login(accessToken, expiresIn)
-        router.push('/attractions?page=1&per_page=10')
+        if (data.status === 'error') {
+          setError('password', { type: 'submitError', message: '' })
+          setError('username', {
+            type: 'submitError',
+            message: 'Invalid Username or password :(',
+          })
+        } else {
+          const { accessToken, expiresIn } = data
+          login(accessToken, expiresIn)
+          router.push('/attractions?page=1&per_page=10')
+        }
       },
     }
   )
@@ -89,11 +96,14 @@ export default function LoginPage() {
               />
               <button
                 type="submit"
-                className="mt-6 px-4 py-3 rounded-md text-lg bg-gray-900 w-full text-white  sm:w-80 md:w-96 mb-4 disabled:opacity-50"
+                className="mt-6 px-4 py-3 rounded-md text-lg bg-gray-900 w-full text-white  sm:w-80 md:w-96  disabled:opacity-50"
                 disabled={!isValid}
               >
                 Login
               </button>
+              {errors.username?.type === 'submitError' && (
+                <p className="text-red-500 text-sm">{errors.username?.message}</p>
+              )}
             </div>
           </form>
         </div>
