@@ -1,18 +1,18 @@
 import React from 'react'
 
 import { Attraction, AttractionList } from '@/data/types'
-import Item from '@/components/attraction-list/item'
+import Item from '@/components/overview/item'
 import Pagination, { PaginationProps } from '@/components/Pagination'
 import LayoutWrapper from '@/components/LayoutWrapper'
 import CommonLayout from './CommonLayout'
 
 type OverviewLayoutProps = {
   title: string
-  list: AttractionList
+  overview: AttractionList
   pagination?: PaginationProps
 }
 
-export default function OverviewLayout({ title, list, pagination }: OverviewLayoutProps) {
+export default function OverviewLayout({ title, overview, pagination }: OverviewLayoutProps) {
   return (
     <LayoutWrapper>
       <CommonLayout>
@@ -23,11 +23,13 @@ export default function OverviewLayout({ title, list, pagination }: OverviewLayo
         </div>
         <div className="flex flex-row-reverse mb-4">
           <div>
-            <span>{list.total} attractions</span>
+            <span className="mt-2 text-xs text-slate-600 uppercase font-bold tracking-wider">
+              {overview.total} attractions
+            </span>
           </div>
         </div>
         <ul className="grid grid-cols-1 gap-5 sm:grid-cols-2 xl:grid-cols-3 ">
-          {list?.data?.map((item: Attraction) => {
+          {overview?.data?.map((item: Attraction) => {
             return <Item key={item.id} item={item} />
           })}
         </ul>

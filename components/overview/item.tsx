@@ -2,7 +2,7 @@ import React from 'react'
 import { Attraction } from '@/data/types'
 import Link from 'next/link'
 import Image from 'next/image'
-
+import { BiCurrentLocation } from 'react-icons/bi'
 type ItemProps = {
   item: Attraction
 }
@@ -12,7 +12,7 @@ export default function Item({ item }: ItemProps) {
 
   return (
     <li key={id} className="rounded-xl">
-      <article className="flex flex-col  xl:space-y-0 bg-gray-100">
+      <template className="flex flex-col xl:space-y-0 bg-gray-100">
         <div className="space-y-3 xl:col-span-3">
           <Image
             src={coverimage}
@@ -23,15 +23,20 @@ export default function Item({ item }: ItemProps) {
             placeholder="blur"
             blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z/C/HgAGgwJ/lK3Q6wAAAABJRU5ErkJggg=="
           />
-          <div className="p-3">
-            <h3 className="text-md leading-8 tracking-tight">
-              <Link href={`/attractions/${id}`} className="text-gray-900">
-                {name}
-              </Link>
-            </h3>
+          <div className="py-2 px-4 pb-4">
+            <div>
+              <div className="font-bold text-slate-700">
+                <Link href={`/attractions/${id}`} className="text-gray-900 hover:underline">
+                  {name}
+                </Link>
+              </div>
+              <div className="flex items-center mt-2 text-xs text-slate-600 uppercase font-bold tracking-wider">
+                <BiCurrentLocation className="mr-2" /> lat: {latitude}, long: {longitude}
+              </div>
+            </div>
           </div>
         </div>
-      </article>
+      </template>
     </li>
   )
 }

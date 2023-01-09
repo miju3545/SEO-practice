@@ -3,14 +3,14 @@ import Head from 'next/head'
 import siteMetaData from '@/data/siteMetaData'
 import { useRouter } from 'next/router'
 
-export type BaseSEOProps = {
+export type CommonSEOProps = {
   ogTitle: string
   ogDescription?: string
   ogType: string
   ogImage?: any
 }
 
-export default function CommonSEO({ ogTitle, ogDescription, ogType, ogImage }: BaseSEOProps) {
+export default function CommonSEO({ ogTitle, ogDescription, ogType, ogImage }: CommonSEOProps) {
   const { asPath: path } = useRouter()
 
   return (

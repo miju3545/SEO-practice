@@ -29,22 +29,21 @@
 
 ## 2-4) 내용
 
-- `attractions`
+- `/attractions?page={number}&per_page={number}`
   - 목록 페이지 seo
   - pagination: page, per_page
-- `attractions/:id`
+- `/attractions/:id`
   - 상세 페이지 seo
-  - `nuka-carousal`: 여러 이미지가 들어올 상황을 대비해 carousal 기능 추가
+  - `nuka-carousal`: 여러 이미지가 들어올 상황을 대비해 carousal 기능 추가합니다.
 
 ## 2-5) 상태 관리
 
 - `react-query`, `contextApi`
-- `fetcher` 함수 작성하여 여러 method, body, params를 요청 & 응답할 수 있게 하였습니다.
-- 로그인 유저나 토큰과 같은 세션 정보만 전역으로 관리하기 위해 간단한 context api 사용하였습니다.
-- cookie를 사용하여 jwt token 값은 물론 expiresIn도 관리한다.
+- `fetcher` 함수 작성하여 여러 method, body, params를 요청 & 응답할 수 있게 합니다.
+- 로그인 유저나 토큰과 같은 세션 정보만 전역으로 관리하기 위해 간단한 context api 사용합니다.
+- cookie를 사용하여 token 값은 물론 expiresIn도 관리합니다.
 
 ## 2-6) form, input 관리
 
 - `use-form-hook`
-- input 요소 여러 개가 한 페이지에 있을 때 발생하는 렌더링 문제를 해결하기 위해 `ref`로 DOM에 직접 접근하는 비제어 방식을 주로 사용하려 했지만 `forwardRef`로 감싸는 작업이 필요했습니다.
-  이런 불편함은 물론 input value에 대한 에러 처리 역시 비제어 방식으로 해결하고자 선택하게 되었습니다.
+- input 요소 여러 개가 한 페이지에 있을 때 발생하는 렌더링 문제를 해결하기 위해 `ref`로 DOM에 직접 접근하는 비제어 방식을 주로 사용하려 했지만 `forwardRef`로 감싸는 작업이 필요했습니다. 이런 불편함은 물론 input value에 대한 에러 처리 역시 동시에 해결하고자 선택하게 되었습니다.

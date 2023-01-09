@@ -7,8 +7,8 @@ import { QueryKeys, fetcher } from '../../utils/queryClient'
 import { useRouter } from 'next/router'
 import Loading from '@/components/Loading'
 import LayoutRenderer from '@/components/LayoutRenderer'
-import { useSession } from 'context/session'
 import useIsAuthed from '../../hooks/useIsAuthed'
+
 const DEFAULT_LAYOUT = 'DetailLayout'
 
 export default function AttractionDetailPage() {

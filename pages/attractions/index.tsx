@@ -68,7 +68,7 @@ export default function AttractionsOverViewPage() {
         ogTitle={`Overview - ${siteMetaData.title}`}
         ogDescription={siteMetaData.description}
       />
-      <LayoutRenderer layout={DEFAULT_LAYOUT} list={data} pagination={pagination} />
+      <LayoutRenderer layout={DEFAULT_LAYOUT} overview={data} pagination={pagination} />
     </>
   )
 }
