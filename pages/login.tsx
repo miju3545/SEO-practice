@@ -3,8 +3,8 @@ import Input from '@/components/login/input'
 import { useForm } from 'react-hook-form'
 import { useSession } from '../context/session'
 import { useMutation } from 'react-query'
-import { fetcher } from '@/utils/queryClient'
-import { QueryKeys } from '../utils/queryClient'
+import { fetcher } from 'pages/api/queryClient'
+import { QueryKeys } from './api/queryClient'
 import { useRouter } from 'next/router'
 import { AiOutlineUser, AiOutlineLock } from 'react-icons/ai'
 import useIsAuthed from '../hooks/useIsAuthed'
@@ -72,7 +72,7 @@ export default function LoginPage() {
       <LoginLayout>
         <div>
           <form onSubmit={handleSubmit(onSubmit)}>
-            <div className="grid gap-4">
+            <div className="grid gap-4 w-80 sm:w-80 md:w-96">
               <Input
                 icon={AiOutlineUser}
                 type="text"
@@ -94,7 +94,7 @@ export default function LoginPage() {
               />
               <button
                 type="submit"
-                className="mt-6 px-4 py-3 rounded-md text-lg bg-gray-900 w-full text-white sm:w-80 md:w-96  disabled:opacity-50 mb-2  uppercase font-semibold tracking-wider"
+                className="text-sm mt-6 px-4 py-3 rounded-md text-lg bg-gray-900 w-full text-white sm:w-80 md:w-96  disabled:bg-gray-300 mb-2  uppercase font-semibold tracking-wider"
                 disabled={!isValid}
               >
                 Login

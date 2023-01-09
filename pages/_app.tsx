@@ -1,7 +1,7 @@
 import '@/styles/globals.css'
 import type { AppProps } from 'next/app'
 import Head from 'next/head'
-import { getClient } from '../utils/queryClient'
+import { getClient } from './api/queryClient'
 import { QueryClientProvider } from 'react-query'
 import SessionProvider from 'context/session'
 

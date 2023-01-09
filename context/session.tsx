@@ -1,7 +1,7 @@
 import { createContext, useContext, useReducer, useEffect, useState } from 'react'
 import { useQuery } from 'react-query'
-import { QueryKeys } from '../utils/queryClient'
-import { fetcher } from '@/utils/queryClient'
+import { QueryKeys } from '../pages/api/queryClient'
+import { fetcher } from 'pages/api/queryClient'
 import Cookies from 'js-cookie'
 
 const SessionContext = createContext<SessionContextType | null>(null)
@@ -89,6 +89,12 @@ export default function SessionProvider({ children }: { children: React.ReactNod
   const set = (user: UserType, token: string) => {
     dispatch({ type: 'SET', payload: { user, token } })
   }
+
+  // useEffect(() => {
+  //   if (data?.user && token) {
+  //     set(data.user, token)
+  //   }
+  // }, [data?.user, token])
 
   return (
     <SessionContext.Provider value={{ session, login, logout }}>{children}</SessionContext.Provider>

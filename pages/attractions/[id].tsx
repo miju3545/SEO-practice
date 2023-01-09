@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import DetailSEO from '@/components/seo/detail'
 import { useQuery } from 'react-query'
-import { QueryKeys, fetcher } from '../../utils/queryClient'
+import { QueryKeys, fetcher } from '../api/queryClient'
 import { useRouter } from 'next/router'
 import Loading from '@/components/Loading'
 import useIsAuthed from '../../hooks/useIsAuthed'

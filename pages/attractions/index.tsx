@@ -2,14 +2,14 @@ import React, { useState, useEffect } from 'react'
 import PageSEO from '@/components/seo/page'
 import siteMetaData from '../../data/siteMetaData'
 import { useQuery } from 'react-query'
-import { QueryKeys, fetcher } from '../../utils/queryClient'
+import { QueryKeys, fetcher } from '../api/queryClient'
 import { AttractionList } from '@/data/types'
 import Loading from '@/components/Loading'
 import { useRouter } from 'next/router'
 import NotFound from 'pages/404'
-import LayoutRenderer from '@/components/LayoutRenderer'
 import useIsAuthed from '../../hooks/useIsAuthed'
 import NotAllowed from 'pages/401'
+import OverviewLayout from '@/layouts/OverviewLayout'
 
 const DEFAULT_LAYOUT = 'OverviewLayout'
 
@@ -53,9 +53,12 @@ export default function AttractionsOverViewPage() {
     }
   }, [queryPage, queryPerPage])
 
+  useEffect(() => {
+    if (!isAuthed) push('/login')
+  }, [isAuthed, push])
+
   if (isLoading) return <Loading />
   if (!data) return
-  if (!isAuthed) return <NotAllowed />
   if (Number(queryPage) < 1 || Number(queryPage) > Number(data?.total_pages)) {
     return <NotFound />
   }
@@ -66,7 +69,7 @@ export default function AttractionsOverViewPage() {
         ogTitle={`Overview | ${siteMetaData.title}`}
         ogDescription={siteMetaData.description}
       />
-      <LayoutRenderer layout={DEFAULT_LAYOUT} overview={data} pagination={pagination} />
+      <OverviewLayout title="overview" overview={data} pagination={pagination} />
     </>
   )
 }

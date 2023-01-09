@@ -1,10 +1,10 @@
 import React from 'react'
-
 import { Attraction, AttractionList } from '@/data/types'
 import Item from '@/components/overview/item'
 import Pagination, { PaginationProps } from '@/components/Pagination'
 import LayoutWrapper from '@/components/LayoutWrapper'
 import CommonLayout from './CommonLayout'
+import Footer from '@/components/Footer'
 
 type OverviewLayoutProps = {
   title: string
@@ -17,7 +17,7 @@ export default function OverviewLayout({ title, overview, pagination }: Overview
     <LayoutWrapper>
       <CommonLayout>
         <div className="space-y-2 pt-6 pb-16 md:space-y-5">
-          <h1 className="pt-2 text-2xl font-bold tracking-tight sm:text-2xl lg:text-3xl">
+          <h1 className="pt-2 text-xl sm:text-2xl lg:text-3xl py-8  uppercase font-bold tracking-wider">
             {title}
           </h1>
         </div>
@@ -35,6 +35,7 @@ export default function OverviewLayout({ title, overview, pagination }: Overview
         </ul>
         {pagination && <Pagination {...pagination} />}
       </CommonLayout>
+      <Footer />
     </LayoutWrapper>
   )
 }

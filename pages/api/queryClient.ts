@@ -1,5 +1,4 @@
 import { QueryClient } from 'react-query'
-import Cookies from 'js-cookie'
 
 type AnyOBJ = {
   [key: string]: any
