@@ -14,11 +14,15 @@ export default function DetailSEO({ ogTitle, ogDescription, images }: DetailSEOP
   const { asPath: path } = useRouter()
 
   const imageArr =
-    images.length === 0 ? [siteMetaData.siteBanner] : typeof images === 'string' ? [images] : images
+    !images || images.length === 0
+      ? [siteMetaData.siteBanner]
+      : typeof images === 'string'
+      ? [images]
+      : images
 
   const featuredImages = imageArr.map((image) => ({
     '@type': 'ImageObject',
-    url: image.includes('http') || image.includes('https') ? image : siteMetaData.siteUrl + image,
+    url: ['https', 'http'].includes(image.split('://')[0]) ? image : siteMetaData.siteUrl + image,
   }))
 
   const structuredData = {

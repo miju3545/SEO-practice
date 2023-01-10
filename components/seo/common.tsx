@@ -25,10 +25,10 @@ export default function CommonSEO({ ogTitle, ogDescription, ogType, ogImage }: C
       <meta property="og:title" content={ogTitle} />
       {Array.isArray(ogImage) ? (
         ogImage.map(({ url }: { url: string }) => (
-          <meta property="og:image" content={url} key={url} />
+          <meta key={url} property="og:image" content={url} />
         ))
       ) : (
-        <meta property="og:image" content={ogImage} key={ogImage} />
+        <meta key={ogImage} property="og:image" content={ogImage} />
       )}
     </Head>
   )
