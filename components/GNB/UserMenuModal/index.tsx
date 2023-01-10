@@ -36,7 +36,9 @@ export default function UserMenuModal({ open, onClose }: UserMenuModalProps) {
             <Link href={`/users/${session.user?.username}`}>
               <S.Username>{session.user?.username}</S.Username>
             </Link>
-            <S.FullName>content={`${session.user?.fname} ${session.user?.lname}`}</S.FullName>
+            <S.FullName>
+              {session.user?.fname} {session.user?.lname}
+            </S.FullName>
           </S.ProfileDetail>
         </S.ProfileWrapper>
         <S.MenuItemList>

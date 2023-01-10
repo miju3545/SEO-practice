@@ -7,14 +7,13 @@ import { useGetAttractionsQuery } from '../../../queries/attraction.query'
 import PageSEO from '../../SEO/PageSEO'
 import ListLayout from '@/components/Layouts/ListLayout'
 import siteMetaData from '@/data/siteMetaData'
-import { AttractionList } from 'types/attraction.type'
 
 export default function AttractionList() {
   const {
     query: { page: queryPage, per_page: queryPerPage },
     push,
   } = useRouter()
-  const { sessionLoading, isAuthed } = useSession()
+  const { sessionLoading } = useSession()
   const [page, setPage] = useState(1)
   const [perPage, setPerPage] = useState(10)
   const { data, isLoading: listLoading } = useGetAttractionsQuery({ page, per_page: perPage })
