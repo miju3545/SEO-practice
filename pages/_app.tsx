@@ -1,9 +1,9 @@
-import '@/styles/globals.css'
 import type { AppProps } from 'next/app'
 import Head from 'next/head'
-import { getClient } from './api/queryClient'
+import { getClient } from '../lib/queryClient'
 import { QueryClientProvider } from 'react-query'
-import SessionProvider from 'context/session'
+import SessionProvider from 'contexts/session'
+import '@/styles/globals.css'
 
 export default function App({ Component, pageProps }: AppProps) {
   const client = getClient()
