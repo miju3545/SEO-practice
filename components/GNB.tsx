@@ -33,6 +33,7 @@ export default function GNB() {
                 height={40}
               />
             </div>
+            <UserMenuModal open={openModal} onClose={() => setOpenModal(false)} />
           </div>
         </div>
         <div className="flex items-center mt-5">
@@ -49,7 +50,6 @@ export default function GNB() {
           ))}
         </div>
       </div>
-      <UserMenuModal open={openModal} onClose={() => setOpenModal(false)} />
     </header>
   )
 }

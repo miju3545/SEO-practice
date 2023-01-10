@@ -25,9 +25,9 @@ export default function AttractionDetailPage() {
 
   const attraction: Attraction = data?.attraction
 
+  if (!isAuthed) return <NotAllowed />
   if (isLoading) return <Loading />
   if (!data) return
-  if (!isAuthed) return <NotAllowed />
 
   return (
     <>

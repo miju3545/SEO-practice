@@ -8,9 +8,15 @@ type DetailSEOProps = {
   ogTitle: string
   ogDescription: string
   images: [] | string
+  canonicalUrl: string
 }
 
-export default function DetailSEO({ ogTitle, ogDescription, images }: DetailSEOProps) {
+export default function DetailSEO({
+  ogTitle,
+  ogDescription,
+  images,
+  canonicalUrl,
+}: DetailSEOProps) {
   const { asPath: path } = useRouter()
 
   const imageArr =
@@ -45,6 +51,7 @@ export default function DetailSEO({ ogTitle, ogDescription, images }: DetailSEOP
       },
     },
     description: ogDescription,
+    datePublished: siteMetaData.datePublished,
   }
 
   return (
@@ -54,6 +61,7 @@ export default function DetailSEO({ ogTitle, ogDescription, images }: DetailSEOP
         ogDescription={ogDescription}
         ogType="Attraction"
         ogImage={featuredImages}
+        canonicalUrl={canonicalUrl}
       />
       <Head>
         <script

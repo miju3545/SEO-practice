@@ -1,8 +1,9 @@
 import React from 'react'
 import { Control, Controller } from 'react-hook-form'
 import { FaCheckCircle } from 'react-icons/fa'
+
 type InputProps = {
-  icon: any
+  icon: () => JSX.Element
   type: 'text' | 'password'
   label: string
   name: string
@@ -23,13 +24,14 @@ export default function Input({
   ...rest
 }: InputProps) {
   const Icon = icon
+
   return (
     <Controller
       name={name}
       control={control}
       rules={rules}
       render={({ field, fieldState: { isDirty, invalid } }) => (
-        <div className="w-full ">
+        <div className="w-full">
           <label
             htmlFor={label}
             className="block text-gray-700 mb-2 text-xs uppercase font-semibold tracking-wider"
@@ -41,8 +43,8 @@ export default function Input({
               <span className="text-gray-500 text-xl">{<Icon />}</span>
             </div>
             <input
+              id={name}
               type={type}
-              id={label}
               className="block w-full rounded-md border-gray-300 pl-10 pr-12 py-2 focus:border-gray-900 outline-none focus:outline-none focus:ring-gray-500 text-md"
               {...field}
               {...rest}

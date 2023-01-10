@@ -7,6 +7,7 @@ type ModalProps = {
   onClose: () => void
   className?: string
 }
+
 export default function Modal({ children, open, onClose, className }: ModalProps) {
   if (!open) return null
 

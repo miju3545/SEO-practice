@@ -94,7 +94,7 @@ export default function LoginPage() {
               />
               <button
                 type="submit"
-                className="text-sm mt-6 px-4 py-3 rounded-md text-lg bg-gray-900 w-full text-white sm:w-80 md:w-96  disabled:bg-gray-300 mb-2  uppercase font-semibold tracking-wider"
+                className="text-sm mt-6 px-4 py-3 rounded-md bg-gray-900 w-full text-white sm:w-80 md:w-96  disabled:bg-gray-300 mb-2  uppercase font-semibold tracking-wider"
                 disabled={!isValid}
               >
                 Login

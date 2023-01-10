@@ -8,9 +8,16 @@ export type CommonSEOProps = {
   ogDescription?: string
   ogType: string
   ogImage?: any
+  canonicalUrl?: string
 }
 
-export default function CommonSEO({ ogTitle, ogDescription, ogType, ogImage }: CommonSEOProps) {
+export default function CommonSEO({
+  ogTitle,
+  ogDescription,
+  ogType,
+  ogImage,
+  canonicalUrl,
+}: CommonSEOProps) {
   const { asPath: path } = useRouter()
 
   return (
@@ -30,6 +37,7 @@ export default function CommonSEO({ ogTitle, ogDescription, ogType, ogImage }: C
       ) : (
         <meta key={ogImage} property="og:image" content={ogImage} />
       )}
+      <link rel="canonical" href={canonicalUrl ? canonicalUrl : siteMetaData.siteUrl + path} />
     </Head>
   )
 }

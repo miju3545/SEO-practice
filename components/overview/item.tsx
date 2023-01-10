@@ -3,6 +3,7 @@ import { Attraction } from '@/data/types'
 import Link from 'next/link'
 import Image from 'next/image'
 import { AiOutlineGlobal } from 'react-icons/ai'
+
 type ItemProps = {
   item: Attraction
 }

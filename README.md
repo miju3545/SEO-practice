@@ -26,7 +26,7 @@
 ## 2-3) SEO
 
 - bot이 ogtag를 잘 긁어가게 하기 위해 `next-sitemap`을 사용해 `roboxs.txt`, 정적/동적 `sitemap.xml`을 생성하여 Nextjs 웹의 SEO를 최적화하였습니다.
--
+- detail 페이지의 경우, 구조화된 데이터 작동 방식을 이용하여 페이지의 콘텐츠를 내용을 더 자세히 작성합니다.
 
 ## 2-4) 내용
 
