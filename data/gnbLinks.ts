@@ -1,3 +1,5 @@
-const gnbLinks = [{ title: 'Overview', href: '/attractions?page=1&per_page=10' }]
+import { DEFAULT_PATH } from './siteMetaData'
+
+const gnbLinks = [{ title: 'Overview', href: DEFAULT_PATH }]
 
 export default gnbLinks
