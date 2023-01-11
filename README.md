@@ -4,7 +4,7 @@
 
 ```bash
 > yarn
-> yarn start # http://localhost:3000
+> yarn dev # http://localhost:3000
 ```
 
 # Description
@@ -21,7 +21,7 @@
 ## 2-3) 스타일링
 
 - `tailwindCSS`
-- `twin.macro`을 같이 사용함으로써 컴포넌트와 스타일 로직을 분리하였습니다.
+- `twin.macro`을 같이 사용해 컴포넌트와 스타일 로직을 분리하였습니다.
 
 ## 2-4) SEO
 
@@ -56,7 +56,7 @@
 ## 2-7) 에러 화면
 
 - `400`
-  - 잘못된 body 또는 params 에 대해 Bad Request 화면을 렌더링합니다.
+  - 잘못된 body 또는 params에 대해 Bad Request 화면을 렌더링합니다.
   - 로그인 화면의 경우, 아이콘이나 에러 메시지로 표현됩니다.
   - 목록 및 상세 페이지의 경우, `page, per_page, attraction_id`값이 유효하지 않을 경우 렌더링합니다.
 - `401`
