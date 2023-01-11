@@ -1,61 +1,72 @@
 import React, { useEffect } from 'react'
-import Input from '@/components/login/input'
 import { useForm } from 'react-hook-form'
-import { useSession } from '../context/session'
-import { useMutation } from 'react-query'
-import { fetcher } from 'pages/api/queryClient'
-import { QueryKeys } from './api/queryClient'
+import { useSession } from '@/contexts/session'
 import { useRouter } from 'next/router'
-import { AiOutlineUser, AiOutlineLock } from 'react-icons/ai'
-import useIsAuthed from '../hooks/useIsAuthed'
-import PageSEO from '@/components/seo/page'
+import { DEFAULT_PATH } from '@/data/siteMetaData'
+import * as yup from 'yup'
+import { yupResolver } from '@hookform/resolvers/yup'
+import { usePostLoginMutation } from '../queries/auth/auth.query'
+import PageSEO from '@/components/SEO/PageSEO'
 import siteMetaData from '@/data/siteMetaData'
-import LoginLayout from '@/layouts/LoginLayout'
+import LoginLayout from '@/components/Layouts/LoginLayout'
+import { AiOutlineUser, AiOutlineLock } from 'react-icons/ai'
+import Input from '@/components/Login/Input/index'
+import * as S from '@/components/Login/styles'
 
-type FormType = {
+export type FormValues = {
   username: string
   password: string
 }
+
 export default function LoginPage() {
   const router = useRouter()
-  const { login } = useSession()
-  const isAuthed = useIsAuthed()
+
+  const { login, isAuthed } = useSession()
+
+  const schema = yup.object({
+    username: yup
+      .string()
+      .matches(/[a-z0-9]+@[a-z]+\.[a-z]{2,3}/)
+      .required('username is required'),
+    password: yup
+      .string()
+      .matches(/^[A-Za-z0-9._%+-]{8,}$/)
+      .required('password is required'),
+  })
+
   const {
     control,
     handleSubmit,
-    getValues,
     setFocus,
     formState: { isValid, errors },
     setError,
-  } = useForm<FormType>({
+  } = useForm<FormValues>({
+    resolver: yupResolver(schema),
     defaultValues: { username: '', password: '' },
     mode: 'onChange',
   })
 
-  const { mutate: loginMutate } = useMutation(
-    QueryKeys.AUTH,
-    ({ username, password }: FormType) =>
-      fetcher({ method: 'POST', path: '/api/login', body: { username, password } }),
-    {
-      onSuccess: (data) => {
-        if (data.status === 'error') {
-          setError('password', { type: 'submitError', message: '' })
-          setError('username', {
-            type: 'submitError',
-            message: 'Invalid Username or password :(',
-          })
-        } else {
-          const { accessToken, expiresIn } = data
-          login(accessToken, expiresIn)
-          router.push('/attractions?page=1&per_page=10')
-        }
-      },
-    }
-  )
+  const postLoginMutate = usePostLoginMutation()
 
-  const onSubmit = () => {
-    const [username, password] = getValues(['username', 'password'])
-    loginMutate({ username, password })
+  const onSubmitInfo = ({ username, password }: FormValues) => {
+    postLoginMutate.mutateAsync(
+      { username, password },
+      {
+        onSuccess: (data) => {
+          if (data.status === 'error') {
+            setError('password', { type: 'submitError', message: '' })
+            setError('username', {
+              type: 'submitError',
+              message: 'Invalid Username or password :(',
+            })
+          } else {
+            const { accessToken, expiresIn } = data
+            login(accessToken, expiresIn)
+            router.push(DEFAULT_PATH)
+          }
+        },
+      }
+    )
   }
 
   useEffect(() => {
@@ -63,48 +74,38 @@ export default function LoginPage() {
   }, [setFocus])
 
   useEffect(() => {
-    if (isAuthed) router.push('/attractions?page=1&per_page=10')
+    if (isAuthed) router.push(DEFAULT_PATH)
   }, [isAuthed, router])
 
   return (
     <>
       <PageSEO ogTitle={`Login | ${siteMetaData.title}`} ogDescription={siteMetaData.description} />
       <LoginLayout>
-        <div>
-          <form onSubmit={handleSubmit(onSubmit)}>
-            <div className="grid gap-4 w-80 sm:w-80 md:w-96">
-              <Input
-                icon={AiOutlineUser}
-                type="text"
-                label={'Username'}
-                name={'username'}
-                control={control}
-                rules={{ required: true, pattern: /[a-z0-9]+@[a-z]+\.[a-z]{2,3}/ }}
-                placeholder={'username'}
-                autoFocus={true}
-              />
-              <Input
-                icon={AiOutlineLock}
-                type="password"
-                label={'Password'}
-                name={'password'}
-                control={control}
-                rules={{ required: true, pattern: /^[A-Za-z0-9._%+-]{8,}$/ }}
-                placeholder={'password'}
-              />
-              <button
-                type="submit"
-                className="text-sm mt-6 px-4 py-3 rounded-md bg-gray-900 w-full text-white sm:w-80 md:w-96  disabled:bg-gray-300 mb-2  uppercase font-semibold tracking-wider"
-                disabled={!isValid}
-              >
-                Login
-              </button>
-              {errors.username?.type === 'submitError' && (
-                <p className="text-red-500 text-sm">{errors.username?.message}</p>
-              )}
-            </div>
-          </form>
-        </div>
+        <S.Form onSubmit={handleSubmit(onSubmitInfo)}>
+          <Input
+            icon={AiOutlineUser}
+            type="text"
+            label={'username'}
+            name={'username'}
+            control={control}
+            placeholder={'username'}
+            autoFocus={true}
+          />
+          <Input
+            icon={AiOutlineLock}
+            type="password"
+            label={'password'}
+            name={'password'}
+            control={control}
+            placeholder={'password'}
+          />
+          <S.Button type="submit" disabled={!isValid}>
+            Login
+          </S.Button>
+          {errors.username?.type === 'submitError' && errors.username?.message && (
+            <S.ErrorMessage>{errors.username?.message}</S.ErrorMessage>
+          )}
+        </S.Form>
       </LoginLayout>
     </>
   )

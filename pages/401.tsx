@@ -1,8 +1,7 @@
-import React from 'react'
 import Link from 'next/link'
 import PageSEO from '@/components/SEO/PageSEO'
 import siteMetaData from '@/data/siteMetaData'
-import * as S from './styles'
+import * as S from '../components/Errors/styles'
 
 export default function NotAllowed() {
   return (

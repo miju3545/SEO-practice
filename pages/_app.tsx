@@ -11,7 +11,7 @@ export default function App({ Component, pageProps }: AppProps) {
   return (
     <>
       <Head>
-        <meta content="width=device-width, initial-scale=1" name="viewport" />
+        <meta content="width=device-width, initial-scale=2" name="viewport" />
       </Head>
       <QueryClientProvider client={client}>
         <SessionProvider>
