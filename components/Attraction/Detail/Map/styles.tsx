@@ -11,5 +11,3 @@ flex items-center
 export const IconWrapper = tw.span`
 mr-1
 `
-
-export const Text = tw.p``

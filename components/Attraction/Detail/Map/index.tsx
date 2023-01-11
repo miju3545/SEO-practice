@@ -19,7 +19,7 @@ export default function Map({ latitude, longitude }: MapProps) {
       {display.map(({ id, Icon, text }) => (
         <S.TextWrapper key={id}>
           <S.IconWrapper>{<Icon />}</S.IconWrapper>
-          <S.Text>{text}</S.Text>
+          <p>{text}</p>
         </S.TextWrapper>
       ))}
     </S.Container>
