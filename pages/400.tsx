@@ -11,9 +11,9 @@ export default function NotFound() {
       <S.Container>
         <S.Inner>
           <S.Status>400(Bad Request)</S.Status>
-          <S.Message>Looks like something went wrong with this link.</S.Message>
+          <S.Message>Bad Request</S.Message>
           <Link href={`${DEFAULT_PATH}`}>
-            <S.Button> Back to Overview</S.Button>
+            <S.Button>Back to Home</S.Button>
           </Link>
         </S.Inner>
       </S.Container>

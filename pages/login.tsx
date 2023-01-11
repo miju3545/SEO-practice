@@ -5,10 +5,10 @@ import { useRouter } from 'next/router'
 import { DEFAULT_PATH } from '@/data/siteMetaData'
 import * as yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
-import { usePostLoginMutation } from '../queries/auth/auth.query'
+import { usePostLoginMutation } from '../queries/auth.query'
 import PageSEO from '@/components/SEO/PageSEO'
 import siteMetaData from '@/data/siteMetaData'
-import LoginLayout from '@/components/Layouts/LoginLayout'
+import CommonLayout from '@/components/CommonLayout'
 import { AiOutlineUser, AiOutlineLock } from 'react-icons/ai'
 import Input from '@/components/Login/Input/index'
 import * as S from '@/components/Login/styles'
@@ -80,33 +80,34 @@ export default function LoginPage() {
   return (
     <>
       <PageSEO ogTitle={`Login | ${siteMetaData.title}`} ogDescription={siteMetaData.description} />
-      <LoginLayout>
-        <S.Form onSubmit={handleSubmit(onSubmitInfo)}>
-          <Input
-            icon={AiOutlineUser}
-            type="text"
-            label={'username'}
-            name={'username'}
-            control={control}
-            placeholder={'username'}
-            autoFocus={true}
-          />
-          <Input
-            icon={AiOutlineLock}
-            type="password"
-            label={'password'}
-            name={'password'}
-            control={control}
-            placeholder={'password'}
-          />
-          <S.Button type="submit" disabled={!isValid}>
-            Login
-          </S.Button>
-          {errors.username?.type === 'submitError' && errors.username?.message && (
-            <S.ErrorMessage>{errors.username?.message}</S.ErrorMessage>
-          )}
-        </S.Form>
-      </LoginLayout>
+      <CommonLayout>
+        <S.LayoutContainer>
+          <S.LayoutTitle>Login</S.LayoutTitle>
+          <S.Form onSubmit={handleSubmit(onSubmitInfo)}>
+            <Input
+              icon={AiOutlineUser}
+              type="text"
+              label={'username'}
+              name={'username'}
+              control={control}
+              autoFocus={true}
+            />
+            <Input
+              icon={AiOutlineLock}
+              type="password"
+              label={'password'}
+              name={'password'}
+              control={control}
+            />
+            <S.Button type="submit" disabled={!isValid}>
+              Login
+            </S.Button>
+            {errors.username?.type === 'submitError' && errors.username?.message && (
+              <S.ErrorMessage>{errors.username?.message}</S.ErrorMessage>
+            )}
+          </S.Form>
+        </S.LayoutContainer>
+      </CommonLayout>
     </>
   )
 }

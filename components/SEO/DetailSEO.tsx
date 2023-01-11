@@ -7,7 +7,7 @@ import { useRouter } from 'next/router'
 type DetailSEOProps = {
   ogTitle: string
   ogDescription: string
-  images: [] | string
+  images?: [] | string
   canonicalUrl?: string
 }
 

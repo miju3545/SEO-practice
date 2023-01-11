@@ -1,8 +1,5 @@
 import { QueryClient } from 'react-query'
-
-type AnyOBJ = {
-  [key: string]: any
-}
+import { AnyOBJ } from '@/types/attraction.type'
 
 export const getClient = (() => {
   let client: QueryClient | null = null

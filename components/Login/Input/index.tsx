@@ -1,28 +1,18 @@
-import React from 'react'
+import React, { InputHTMLAttributes } from 'react'
 import { Control, Controller } from 'react-hook-form'
 import { FaCheckCircle } from 'react-icons/fa'
 import { IconType } from 'react-icons'
-import { AnyOBJ } from 'types/attraction.type'
 import * as S from './styles'
 
-type InputProps = {
+type InputProps = InputHTMLAttributes<HTMLInputElement> & {
   icon: IconType
   type: 'text' | 'password'
   label: string
   name: string
   control: Control
-  placeholder?: string
-} & AnyOBJ
+}
 
-export default function Input({
-  icon,
-  type,
-  label,
-  name,
-  control,
-  placeholder,
-  ...rest
-}: InputProps) {
+export default function Input({ icon, type, label, name, control, ...rest }: InputProps) {
   const Icon = icon
 
   return (

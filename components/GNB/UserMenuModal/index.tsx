@@ -13,7 +13,7 @@ type UserMenuModalProps = {
 
 export default function UserMenuModal({ open, onClose }: UserMenuModalProps) {
   const router = useRouter()
-  const { session, logout, sessionLoading } = useSession()
+  const { session, logout } = useSession()
 
   const handleLogout = () => {
     logout()

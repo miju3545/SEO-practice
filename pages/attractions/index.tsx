@@ -2,18 +2,15 @@ import React, { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
 import BadRequest from '../../pages/400'
 import PageSEO from '@/components/SEO/PageSEO'
-import ListLayout from '@/components/Layouts/ListLayout'
 import siteMetaData from '@/data/siteMetaData'
-import AttractionRepository from 'repositories/AttractionRepository'
+import AttractionRepository, { Attraction } from 'repositories/AttractionRepository'
 import { GetServerSideProps, InferGetServerSidePropsType } from 'next'
-
-const DefaultData = {
-  page: 1,
-  per_page: 10,
-  total: 12,
-  total_pages: 2,
-  data: [],
-}
+import AuthedOnlyLayout from '@/components/AuthedOnlyLayout'
+import CommonLayout from '@/components/CommonLayout'
+import * as S from 'components/Attraction/List/styles'
+import ListItem from '@/components/Attraction/List/ListItem'
+import Footer from '@/components/Footer'
+import Pagination from '@/components/Attraction/List/Pagination'
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   try {
@@ -57,11 +54,16 @@ export default function AttractionListPage({
     }
 
     if (queryPerPage) {
-      setPerPage(Number(queryPerPage) || 10)
+      setPerPage(Number(queryPerPage))
     }
   }, [queryPage, queryPerPage])
 
-  if (Number(queryPage) < 1 || Number(queryPage) > Number(data?.total_pages)) {
+  if (
+    isNaN(Number(queryPage)) ||
+    isNaN(Number(queryPerPage)) ||
+    Number(queryPage) < 1 ||
+    Number(queryPage) > Number(data?.total_pages)
+  ) {
     return <BadRequest />
   }
 
@@ -71,7 +73,23 @@ export default function AttractionListPage({
         ogTitle={`Overview | ${siteMetaData.title}`}
         ogDescription={siteMetaData.description}
       />
-      <ListLayout title={'Overview'} list={data || DefaultData} pagination={pagination} />
+      <AuthedOnlyLayout>
+        <CommonLayout>
+          <S.TitleWrapper>
+            <S.Title>Overview</S.Title>
+          </S.TitleWrapper>
+          <S.InfoWrapper>
+            <S.TotalInfo>{data.total} attractions</S.TotalInfo>
+          </S.InfoWrapper>
+          <S.ItemList>
+            {data.data?.map((item: Attraction) => (
+              <ListItem key={item.id} item={item} />
+            ))}
+          </S.ItemList>
+          {pagination && <Pagination {...pagination} />}
+        </CommonLayout>
+        <Footer />
+      </AuthedOnlyLayout>
     </>
   )
 }

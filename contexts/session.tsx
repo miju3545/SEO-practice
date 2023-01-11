@@ -1,36 +1,25 @@
 import { createContext, useContext, useReducer, useEffect } from 'react'
-import { useQuery } from 'react-query'
-import { QueryKeys, fetcher } from 'lib/queryClient'
 import Token from 'lib/token'
-import { TOKEN_KEY } from 'constants/token/token.constant'
-import { useGetUserInfoQuery } from 'queries/auth.query.'
-export const SessionContext = createContext<SessionContextType | null>(null)
+import { useGetUserInfoQuery } from '@/queries/auth.query'
+import { TOKEN_KEY } from 'lib/token'
+import { User } from '@/repositories/AuthRepository'
 
-type UserType = {
-  id: number
-  fname: string
-  lname: string
-  username: string
-  password: string
-  email: string
-  avatar: string
-}
+export const SessionContext = createContext<SessionContextType | null>(null)
 
 export type SessionContextType = {
   session: SessionType
-  sessionLoading: boolean
-  isAuthed: boolean
+  isAuthed: boolean // 따로 state로 뺄까?? 흠...
   login: (token: string, expires: number) => void
   logout: () => void
 }
 
 type SessionType = {
-  user: UserType | null
+  user: User | null
   token: string | null
 }
 
 type ActionType =
-  | { type: 'SET'; payload: { user: UserType; token: string } }
+  | { type: 'SET'; payload: { user: User; token: string } }
   | { type: 'LOGIN'; payload: { token: string } }
   | { type: 'LOGOUT' }
 
@@ -57,7 +46,7 @@ export function reducer(session: SessionType, action: ActionType): SessionType {
 export default function SessionProvider({ children }: { children: React.ReactNode }) {
   const token = Token.getToken(TOKEN_KEY)
 
-  const { data, isLoading: sessionLoading } = useGetUserInfoQuery({ token })
+  const { data } = useGetUserInfoQuery({ token })
 
   const defaultSession: SessionType = {
     user: null,
@@ -76,7 +65,7 @@ export default function SessionProvider({ children }: { children: React.ReactNod
     Token.clearToken(TOKEN_KEY)
   }
 
-  const set = (user: UserType, token: string) => {
+  const set = (user: User, token: string) => {
     dispatch({ type: 'SET', payload: { user, token } })
   }
 
@@ -90,8 +79,7 @@ export default function SessionProvider({ children }: { children: React.ReactNod
     <SessionContext.Provider
       value={{
         session,
-        sessionLoading,
-        isAuthed: session.token !== null && session.user !== null,
+        isAuthed: !!session.token,
         login,
         logout,
       }}

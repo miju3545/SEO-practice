@@ -3,7 +3,7 @@ import { useQuery } from 'react-query'
 import AttractionRepository, {
   GetAttractionsParams,
   GetAttractionParams,
-} from 'repo/AttractionRepository'
+} from 'repositories/AttractionRepository'
 
 export const useGetAttractionsQuery = ({ page, per_page }: GetAttractionsParams) => {
   return useQuery(

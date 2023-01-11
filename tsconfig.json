@@ -19,13 +19,15 @@
       "@/pages/*": ["pages/*"],
       "@/components/*": ["components/*"],
       "@/data/*": ["data/*"],
-      "@/layouts/*": ["layouts/*"],
-      "@/utils/*": ["utils/*"],
       "@/styles/*": ["styles/*"],
-      "@/hooks/*": ["hooks/*"],
-      "@/contexts/*": ["contexts/*"]
+      "@/lib/*": ["lib/*"],
+      "@/queries/*": ["queries/*"],
+      "@/repositories/*": ["repositories/*"],
+      "@/contexts/*": ["contexts/*"],
+      "@/public/*": ["public/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "pages/...collections.tsx"],
-  "exclude": ["node_modules"]
+  "exclude": ["node_modules"],
+  "references": [{ "path": "./tsconfig.config.js" }]
 }

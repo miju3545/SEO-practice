@@ -7,7 +7,7 @@ export type CommonSEOProps = {
   ogTitle: string
   ogDescription?: string
   ogType: string
-  ogImage?: any
+  ogImage: { '@type': string; url: string }[] | string
   canonicalUrl?: string
 }
 
