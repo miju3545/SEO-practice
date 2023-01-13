@@ -29,11 +29,8 @@ export type AttractionResponse = {
   attraction: Attraction
 }
 
-class AttractionRepository {
-  public async getAttractions({
-    page,
-    per_page,
-  }: GetAttractionsParams): Promise<AttractionsResponse> {
+class AttractionApi {
+  public async getAll({ page, per_page }: GetAttractionsParams): Promise<AttractionsResponse> {
     const data = await fetcher({
       method: 'GET',
       path: '/api/attractions',
@@ -43,7 +40,7 @@ class AttractionRepository {
     return data
   }
 
-  public async getAttractionById({ id }: GetAttractionParams): Promise<AttractionResponse> {
+  public async getById({ id }: GetAttractionParams): Promise<AttractionResponse> {
     const data = await fetcher({
       method: 'GET',
       path: `/api/attractions/${id}`,
@@ -52,4 +49,4 @@ class AttractionRepository {
   }
 }
 
-export default new AttractionRepository()
+export default new AttractionApi()

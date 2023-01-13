@@ -3,7 +3,7 @@ import { useRouter } from 'next/router'
 import BadRequest from '../../pages/400'
 import PageSEO from '@/components/SEO/PageSEO'
 import siteMetaData from '@/data/siteMetaData'
-import AttractionRepository, { Attraction } from 'repositories/AttractionRepository'
+import AttractionApi, { Attraction } from '@/repositories/AttractionApi'
 import { GetServerSideProps, InferGetServerSidePropsType } from 'next'
 import AuthedOnlyLayout from '@/components/AuthedOnlyLayout'
 import CommonLayout from '@/components/CommonLayout'
@@ -16,7 +16,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   try {
     const { page, per_page } = context.query
 
-    const data = await AttractionRepository.getAttractions({
+    const data = await AttractionApi.getAll({
       page: Number(page),
       per_page: Number(per_page),
     })

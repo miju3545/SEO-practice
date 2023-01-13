@@ -37,8 +37,8 @@ export type UserInfoResponse = {
   user: User
 }
 
-class AuthRepository {
-  public async postLogin({ username, password }: PostLoginParams): Promise<LoginResponse> {
+class AuthApi {
+  public async login({ username, password }: PostLoginParams): Promise<LoginResponse> {
     const data = await fetcher({ method: 'POST', path: '/api/login', body: { username, password } })
 
     return data
@@ -54,4 +54,4 @@ class AuthRepository {
   }
 }
 
-export default new AuthRepository()
+export default new AuthApi()

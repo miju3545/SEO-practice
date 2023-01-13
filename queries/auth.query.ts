@@ -1,19 +1,13 @@
 import { useMutation, useQuery } from 'react-query'
 import { QueryKeys } from '../lib/queryClient'
-import AuthRepository, { GetUserInfoParams, PostLoginParams } from 'repositories/AuthRepository'
+import AuthApi, { GetUserInfoParams, PostLoginParams } from '@/repositories/AuthApi'
 
 export const usePostLoginMutation = () => {
-  const mutation = useMutation(QueryKeys.AUTH, ({ username, password }: PostLoginParams) =>
-    AuthRepository.postLogin({ username, password })
+  return useMutation(QueryKeys.AUTH, ({ username, password }: PostLoginParams) =>
+    AuthApi.login({ username, password })
   )
-
-  return mutation
 }
 
 export const useGetUserInfoQuery = ({ token }: GetUserInfoParams) => {
-  const query = useQuery([QueryKeys.ATTRACTIONS, token], () =>
-    AuthRepository.getUserInfo({ token })
-  )
-
-  return query
+  return useQuery([QueryKeys.ATTRACTIONS, token], () => AuthApi.getUserInfo({ token }))
 }

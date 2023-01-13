@@ -1,7 +1,7 @@
 import React from 'react'
 import Image from 'next/image'
 import * as S from './styles'
-import { Attraction } from 'repositories/AttractionRepository'
+import { Attraction } from '@/repositories/AttractionApi'
 
 export type ListItemProps = {
   item: Attraction

@@ -2,13 +2,13 @@ import { createContext, useContext, useReducer, useEffect } from 'react'
 import Token from 'lib/token'
 import { useGetUserInfoQuery } from '@/queries/auth.query'
 import { TOKEN_KEY } from 'lib/token'
-import { User } from '@/repositories/AuthRepository'
+import { User } from '@/repositories/AuthApi'
 
 export const SessionContext = createContext<SessionContextType | null>(null)
 
 export type SessionContextType = {
   session: SessionType
-  isAuthed: boolean // 따로 state로 뺄까?? 흠...
+  isAuthed: boolean
   login: (token: string, expires: number) => void
   logout: () => void
 }
@@ -44,7 +44,7 @@ export function reducer(session: SessionType, action: ActionType): SessionType {
 }
 
 export default function SessionProvider({ children }: { children: React.ReactNode }) {
-  const token = Token.getToken(TOKEN_KEY)
+  const token = Token.get(TOKEN_KEY)
 
   const { data } = useGetUserInfoQuery({ token })
 
@@ -56,13 +56,13 @@ export default function SessionProvider({ children }: { children: React.ReactNod
   const [session, dispatch] = useReducer(reducer, defaultSession)
 
   const login = (token: string, expires: number) => {
-    Token.setToken(TOKEN_KEY, `Bearer ${token}`, expires)
+    Token.save(TOKEN_KEY, `Bearer ${token}`, expires)
     dispatch({ type: 'LOGIN', payload: { token } })
   }
 
   const logout = () => {
     dispatch({ type: 'LOGOUT' })
-    Token.clearToken(TOKEN_KEY)
+    Token.clear(TOKEN_KEY)
   }
 
   const set = (user: User, token: string) => {

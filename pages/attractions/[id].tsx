@@ -3,7 +3,7 @@ import Map from '@/components/Attraction/Detail/Map'
 import ImageCarousalContainer from '@/components/Attraction/Detail/ImageCarousal'
 import DetailSEO from '@/components/SEO/DetailSEO'
 import siteMetaData from '@/data/siteMetaData'
-import AttractionRepository from 'repositories/AttractionRepository'
+import AttractionApi from '@/repositories/AttractionApi'
 import { GetServerSideProps, InferGetServerSidePropsType } from 'next'
 import AuthedOnlyLayout from '@/components/AuthedOnlyLayout'
 import CommonLayout from '@/components/CommonLayout'
@@ -12,7 +12,7 @@ import BadRequest from '@/pages/400'
 export const getServerSideProps: GetServerSideProps = async (context) => {
   try {
     const { id } = context.query
-    const data = await AttractionRepository.getAttractionById({
+    const data = await AttractionApi.getById({
       id: Number(id),
     })
 

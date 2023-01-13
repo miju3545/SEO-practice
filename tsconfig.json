@@ -22,7 +22,7 @@
       "@/styles/*": ["styles/*"],
       "@/lib/*": ["lib/*"],
       "@/queries/*": ["queries/*"],
-      "@/repositories/*": ["repositories/*"],
+      "@/repositories/*": ["apis/*"],
       "@/contexts/*": ["contexts/*"],
       "@/public/*": ["public/*"]
     }
