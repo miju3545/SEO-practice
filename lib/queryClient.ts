@@ -1,5 +1,5 @@
 import { QueryClient } from 'react-query'
-import { AnyOBJ } from '@/types/attraction.type'
+import { AnyOBJ } from '@/repositories/AuthRepository'
 
 export const getClient = (() => {
   let client: QueryClient | null = null

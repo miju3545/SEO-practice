@@ -3,13 +3,14 @@ import { Control, Controller } from 'react-hook-form'
 import { FaCheckCircle } from 'react-icons/fa'
 import { IconType } from 'react-icons'
 import * as S from './styles'
+import { FormValues } from '@/pages/login'
 
 type InputProps = InputHTMLAttributes<HTMLInputElement> & {
   icon: IconType
   type: 'text' | 'password'
   label: string
   name: string
-  control: Control
+  control: Control<FormValues | any>
 }
 
 export default function Input({ icon, type, label, name, control, ...rest }: InputProps) {
