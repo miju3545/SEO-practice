@@ -58,6 +58,7 @@ export const fetcher = async ({
     const res = await fetch(url, options)
     const json = await res.json()
 
+    console.log('sjosn', json)
     return json
   } catch (error) {
     console.error(error)

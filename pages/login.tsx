@@ -53,6 +53,7 @@ export default function LoginPage() {
       { username, password },
       {
         onSuccess: (data) => {
+          console.log(data)
           if (data.status === 'error') {
             setError('password', { type: 'submitError', message: '' })
             setError('username', {
