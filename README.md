@@ -2,7 +2,7 @@
 
 ## 1-1) 실행
 
-branch ver1으로 이동 후,
+branch `ver1`으로 이동 후,
 
 ```bash
 > yarn
