@@ -1,10 +1,8 @@
-import siteMetaData from './data/siteMetaData'
-
 module.exports = {
-  siteUrl: siteMetaData.siteUrl,
+  siteUrl: 'http://localhost:3000',
   generateRobotsTxt: true,
   exclude: ['/server-sitemap.xml'],
   robotsTxtOptions: {
-    additionalSitemaps: [`${siteMetaData.siteUrl}/server-sitemap.xml`],
+    additionalSitemaps: [`http://localhost:3000/server-sitemap.xml`],
   },
 }

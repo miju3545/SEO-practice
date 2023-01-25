@@ -10,6 +10,7 @@ type InputProps = InputHTMLAttributes<HTMLInputElement> & {
   type: 'text' | 'password'
   label: string
   name: string
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   control: Control<FormValues | any>
 }
 
